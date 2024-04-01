@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Local Data Storage Example</title>
+<script>
+  // Function to save a person's name to localStorage
+  function saveName() {
+    // Get the name entered by the user
+    var name = document.getElementById('name').value;
+    
+    // Check if the name is not empty
+    if (name.trim() !== '') {
+      // Get the existing data from localStorage or initialize an empty array
+      var people = JSON.parse(localStorage.getItem('people')) || [];
+      
+      // Add the new name to the array
+      people.push(name);
+      
+      // Save the updated array back to localStorage
+      localStorage.setItem('people', JSON.stringify(people));
+      
+      // Clear the input field
+      document.getElementById('name').value = '';
+      
+      // Display a success message
+      alert('Name saved successfully!');
+    } else {
+      // Display an error message if the name is empty
+      alert('Please enter a name.');
+    }
+  }
+  
+  // Function to display all saved names
+  function displayNames() {
+    // Get the array of names from localStorage
+    var people = JSON.parse(localStorage.getItem('people'));
+    
+    // Check if there are names stored
+    if (people && people.length > 0) {
+      // Display each name in an alert
+      alert('Stored Names:\n' + people.join('\n'));
+    } else {
+      // Display a message if no names are stored
+      alert('No names stored yet.');
+    }
+  }
+</script>
+</head>
+<body>
+
+<!-- Form to input and save a person's name -->
+<form>
+  <label for="name">Enter Name:</label>
+  <input type="text" id="name">
+  <button type="button" onclick="saveName()">Save</button>
+</form>
+
+<!-- Button to display all saved names -->
+<button type="button" onclick="displayNames()">Display Names</button>
+
+</body>
+</html>
